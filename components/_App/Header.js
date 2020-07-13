@@ -1,9 +1,10 @@
 import { Menu, Container, Image, Icon } from "semantic-ui-react";
 import Link from "next/link";
 import Router, { useRouter } from "next/router";
+// Router gives some part of a route life cycles
 import NProgress from "nprogress";
 function Header() {
-  const router = useRouter();
+  const router = useRouter(); // give information about current route
   const user = true;
   function isActive(route) {
     return route === router.pathname;
@@ -13,7 +14,7 @@ function Header() {
   Router.onRouteChangeError = () => NProgress.done();
   // what route is currently on react hook give us imformation about router
   return (
-    <Menu fluid id="menu" inverted>
+    <Menu stackable fluid id="menu" inverted>
       <Container text>
         <Link href="/">
           <Menu.Item header active={isActive("/")}>
@@ -56,21 +57,21 @@ function Header() {
             </Menu.Item>
           </>
         ) : (
-          <>
-            <Link href="/login">
-              <Menu.Item header active={isActive("/login")}>
-                <Icon name="sign in" size="large" />
+            <>
+              <Link href="/login">
+                <Menu.Item header active={isActive("/login")}>
+                  <Icon name="sign in" size="large" />
                 Login
               </Menu.Item>
-            </Link>
-            <Link href="/signup">
-              <Menu.Item header active={isActive("/signup")}>
-                <Icon name="signup" size="large" />
+              </Link>
+              <Link href="/signup">
+                <Menu.Item header active={isActive("/signup")}>
+                  <Icon name="signup" size="large" />
                 Signup
               </Menu.Item>
-            </Link>
-          </>
-        )}
+              </Link>
+            </>
+          )}
       </Container>
     </Menu>
   );
