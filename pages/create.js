@@ -11,7 +11,7 @@ import {
 import React from "react";
 import axios from "axios";
 import baseUrl from "../utils/baseUrl";
-
+import catchErrors from "../utils/catchErrors";
 const INITIAL_PRODUCT = {
   name: "",
   price: "",
@@ -29,7 +29,6 @@ function CreateProduct() {
   // useEffect is execute when its dependency properties are changed
   React.useEffect(() => {
     const isProduct = Object.values(product).every((el) => Boolean(el));
-    console.log(Object.values(product));
     isProduct ? setDisabled(false) : setDisabled(true);
   }, [product]);
 
@@ -56,8 +55,10 @@ function CreateProduct() {
     try {
       event.preventDefault();
       setLoading(true);
+      setError("");
+
       const mediaUrl = await handleImageUpload();
-      const url = `${baseUrl}/api/produc`;
+      const url = `${baseUrl}/api/product`;
       const { name, price, description } = product;
       const payload = { name, price, description, mediaUrl };
       const response = await axios.post(url, payload);
@@ -76,13 +77,15 @@ function CreateProduct() {
         <Icon name="add" color="orange" />
         Create New Product
       </Header>
-      <Form loading={loading} success={success} onSubmit={handleSubmit}>
-        <Message
-          success
-          icon="check"
-          header="success"
-          content="Your Product has been posted"
-        />
+      <Form
+        loading={loading}
+        success={success}
+        error={Boolean(error)}
+        onSubmit={handleSubmit}
+      >
+        <Message error header="Oops!" content={error} />
+        <Message success icon="check" header="Success!" content={success} />
+
         <Form.Group widths="equal">
           <Form.Field
             control={Input}
