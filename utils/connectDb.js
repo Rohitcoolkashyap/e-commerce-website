@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import url from '../next.config'
 const connection = {}
 
 async function connectDb() {
@@ -8,7 +9,7 @@ async function connectDb() {
         return;
     }
     //use new database connection
-    const db = await mongoose.connect(process.env.MONGO_SRV, {
+    const db = await mongoose.connect(process.env.MONGO_SRV || url.env.MONGO_SRV, {
         useCreateIndex: true,
         useFindAndModify: false,
         useNewUrlParser: true,
