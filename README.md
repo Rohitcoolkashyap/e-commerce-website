@@ -1,5 +1,5 @@
 ## Starting Repo for ecommerce MERN Stack application
-## demo link :- https://rohit-site.now.sh/
+## demo link :- https://dream-market-client.vercel.app/
 ## website is under maintenance please run locally
 ## git clone url
 ## cd project
